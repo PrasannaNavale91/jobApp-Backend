@@ -1,4 +1,3 @@
-import { now } from 'mongoose';
 import { catchAsyncError } from '../middlewares/catchAsyncError.js';
 import ErrorHandler from '../middlewares/error.js';
 import { User } from '../models/userSchema.js'
@@ -47,6 +46,8 @@ export const logout = catchAsyncError(async(req, res, next)=>{
     res.status(201).cookie('token', '', {
         httpOnly: true,
         expires: new Date(Date.now()),
+        secure: true,
+        sameSite: "None"
     })
     .json({
         success: true,
